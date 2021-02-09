@@ -1,0 +1,122 @@
+package com.example.earthquakedata;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import androidx.loader.content.Loader;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<quakes>> {
+    //request url for the server
+    private static final String USGS_REQUEST_URL  = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    //creating an identifier for the background loader
+    private static final int QUAKE_LOADER = 1;
+    //creating a log tag
+    private static final String LOG_TAG = MainActivity.class.getName();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        LoaderManager loaderManager = getSupportLoaderManager();
+        getSupportLoaderManager().initLoader(QUAKE_LOADER,null,this);
+        Log.e(LOG_TAG,"onCreate was run with the support loader");
+    }
+
+    @NonNull
+    @Override
+    public Loader<List<quakes>> onCreateLoader(int id, @Nullable Bundle args) { //this method finds the loader to be implemented | return type is the object to be returned by the background task
+        Log.e(LOG_TAG,"onCreateLoader called the backgroundLoader class");
+        return new backgroundLoader(this,USGS_REQUEST_URL);     //return the loader
+    }
+
+
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<List<quakes>> loader, List<quakes> data) {
+        Log.e(LOG_TAG,"loadFinished was called in the main activity and the UI was updated");
+        View loadingIndicator = findViewById(R.id.loadingIndicator);
+        loadingIndicator.setVisibility(View.GONE);
+        updateUI(data);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<List<quakes>> loader) {
+        Log.e(LOG_TAG,"Loader was reset in the Main Activity");
+    }
+
+    private class getDataFromServer extends AsyncTask<String,Void,ArrayList<quakes>>{
+
+        @Override
+        protected ArrayList<quakes> doInBackground(String... strings) {
+            final ArrayList<quakes> earthquakes = QueryUtils.getDataFrom(strings[0],getApplicationContext());
+            return earthquakes;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<quakes> earthquakes) {
+            updateUI(earthquakes);
+        }
+    }
+
+     public void updateUI(final List<quakes> earthquakes){
+         ListView mainList = (ListView) findViewById(R.id.mainList);
+         MyAdapter itemsAdapter =new MyAdapter((ArrayList<quakes>) earthquakes,this);
+         mainList.setAdapter(itemsAdapter);
+        if(earthquakes.isEmpty()){
+            Intent intent = new Intent(this,emptyList.class);
+            startActivity(intent);
+        }
+         mainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+             @Override
+             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                 String url = earthquakes.get(position).getUrl();
+                 Intent intent = new Intent(getApplicationContext(),TappedEarthquake.class);
+                 //get the eventid from the json and send to the TappedEarthquake activity
+                 intent.putExtra("EVENTID",earthquakes.get(position).getId());
+                 Log.e(LOG_TAG,"evenid for an earthquake was sent to the TappedEarthquake");
+                 startActivity(intent);
+                 //use this to open in browser
+                 /*intent.setData(Uri.parse(url));
+                 startActivity(intent);*/
+
+             }
+         });
+     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.e(LOG_TAG,"the onCreateOptions method was run in main");
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.e(LOG_TAG,"the onOptionsItemSelected was run in main");
+        int id = item.getItemId();
+        if(id == R.id.action_settings){
+            Intent intent = new Intent(this, quakeSettings.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
