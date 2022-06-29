@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TappedEarthquake"
+    android:background="#000000">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/locationImage"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:text="Location"
+            android:textColor="#00e676"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/locationImage"
+            android:layout_marginTop="10dp"
+            android:id="@+id/quakeLocation"/>
+        //magnitude texts
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/quakeLocation"
+            android:layout_marginTop="10dp"
+            android:text="Magnitude : "
+            android:textColor="#ffffff"
+            android:id="@+id/text_magnitude"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@id/text_magnitude"
+            android:layout_below="@id/quakeLocation"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="20dp"
+            android:id="@+id/magText"/>
+        //alert level texts
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/text_magnitude"
+            android:layout_marginTop="20dp"
+            android:text="Alert Level : "
+            android:textColor="#ffffff"
+            android:id="@+id/text_alertLevel"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/text_alertLevel"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@id/text_magnitude"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="20dp"
+            android:id="@+id/alertText"/>
+        //time texts
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/text_alertLevel"
+            android:layout_marginTop="20dp"
+            android:text="Time : "
+            android:textColor="#ffffff"
+            android:id="@+id/text_timeText"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@id/text_timeText"
+            android:layout_below="@+id/text_alertLevel"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="20dp"
+            android:id="@+id/timeText"/>
+        //tsunamiAlert Texts
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/text_timeText"
+            android:layout_marginTop="20dp"
+            android:text="Tsunami Alert : "
+            android:textColor="#ffffff"
+            android:id="@+id/text_tsunamiAlert"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/text_tsunamiAlert"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/text_timeText"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="20dp"
+            android:id="@+id/tsunamiText"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/text_tsunamiAlert"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/earth_icon"
+            android:onClick="viewInMap"
+            android:id="@+id/image_earth_tappedEarthquake"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_earth_tappedEarthquake"
+            android:layout_centerHorizontal="true"
+            android:background="#000000"
+            android:text="View Map"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:padding="15dp"
+            android:onClick="viewInMap"
+            android:id="@+id/text_ViewMap_tappedEarthquake"/>
+        //Relative layout for the news elements
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_details"
+            android:layout_marginTop="10dp"
+            android:background="#212121"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/newsElement">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/news_heading"
+                android:text="USGS NEWS"
+                android:textColor="#ffffff"
+                android:onClick="viewNews"
+                android:textSize="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@id/news_heading"
+                android:textColor="#bdbdbd"
+                android:id="@+id/news_title"
+                android:onClick="viewNews"
+                android:textSize="15dp"/>
+
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/text_ViewMap_tappedEarthquake"
+            android:src="@drawable/usgs_logo"
+            android:id="@+id/image_usgsLogo"
+            android:onClick="viewDetails"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:textColor="#ffffff"
+            android:text="Details"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/image_usgsLogo"
+            android:textAlignment="center"
+            android:onClick="viewDetails"
+            android:id="@+id/text_details"/>
+
+
+    </RelativeLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
