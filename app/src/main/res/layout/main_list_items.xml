@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#000000"
+        android:id="@+id/mainList_layout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mag"
+            android:id="@+id/magnitude"
+            android:background="@drawable/magnitude_circle"
+            android:textSize="30dp"
+            android:textColor="#00e676"
+            android:padding="10dp"
+            android:layout_marginRight="25dp"
+            android:layout_gravity="center_vertical"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="locationName"
+            android:id="@+id/locationName"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:id="@+id/date"
+            android:textSize="15dp"
+            android:textColor="#bdbdbd"
+            android:padding="10dp"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
